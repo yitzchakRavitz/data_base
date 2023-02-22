@@ -8,6 +8,23 @@ import { Sequelize } from 'sequelize';
 import dotenv from 'dotenv';
 dotenv.config();
 
+// export function getConnection() {
+//     const sequelize = new Sequelize({
+//         dialect: "postgres",
+//         host: "localhost",
+//         port: 5432,
+//         database: "store_managment",
+//         username: 'student_server',
+//         password: '1234',
+//         logging: (sql) => {
+//             console.log("Query: %s", sql)
+//         }
+//     })
+//     return sequelize;
+// } 
+
+
+
 const { DB_NAME, DB_USER, DB_HOST, DB_PASSWORD } = process.env;
 export function getConnection() {
     const sequelize = new Sequelize({
