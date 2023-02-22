@@ -24,7 +24,7 @@
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "pg": "^8.9.0",
-    "sequelize": "^6.28.0",
+    "sequelize": "^6.28.1",
     "uuid-validate": "^0.0.3"
   },
   "devDependencies": {

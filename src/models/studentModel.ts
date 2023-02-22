@@ -4,5 +4,5 @@ export interface studentModel {
     Name: string,
     Phone_number: number,
     Email: string
-    asd
+    
 }
