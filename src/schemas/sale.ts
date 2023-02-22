@@ -2,15 +2,16 @@ import { Model, Sequelize } from "sequelize";
 import { sale as Client_purchase } from "../models/sale";
 import { ClientInterface } from "./client";
 import { ProductInterface } from "./product";
+import { supplierInterface } from "./supplier";
 
 type ProductSchemaModel = Model<Client_purchase>
 
 export interface ClientPurchaseeInterface {
   insert: (client_purchase: Client_purchase) => Promise<Client_purchase>
-  //getAllsalesOfSupplier: (id: string) => Promise<Client_purchase>
+  getAllsalesOfSupplier: (id: string) => any
 }
 
-export async function createTable(sequelize: Sequelize, Client: ClientInterface["Schema"], Product: ProductInterface["Schema"]): Promise<ClientPurchaseeInterface> {
+export async function createTable(sequelize: Sequelize, supplier: supplierInterface["Schema"],Client: ClientInterface["Schema"], Product: ProductInterface["Schema"]): Promise<ClientPurchaseeInterface> {
   const Client_purchase = sequelize.define<ProductSchemaModel>('client_purchase', {
   } as Client_purchase, {
     schema: "product",
@@ -21,10 +22,20 @@ export async function createTable(sequelize: Sequelize, Client: ClientInterface[
   await Client_purchase.sync()
 
   return {
-    // async getAllsalesOfSupplier(id) {
-    //   const result = Client_purchase.findAll
-      
-    // },
+    async getAllsalesOfSupplier(supplierName) {
+      const result = await Client_purchase.findAll({
+        include: [{
+          model: Product,
+          include: [{
+            model: supplier,
+            where: { name: supplierName }
+          }]
+        }, {
+          model: supplier
+        }]
+      })
+      return result;
+    },
     async insert(client_purchase) {
       const newSale = {
         Product: client_purchase.Product,

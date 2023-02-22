@@ -71,17 +71,13 @@ export async function createTable(sequelize: Sequelize): Promise<ProductInterfac
             return result?.toJSON(); 
         },
         async getAllProductOfSupplier(supplierid) {
-            ProductSchema.findAll({
+            const result = await ProductSchema.findAll({
                 include: [{
                   where: { id: supplierid }
                 }]
               })
-              .then(products => {
-                return (products);
-              })
-              .catch(error => {
-                console.error(error);
-              });
+              return result; 
+              
         }
     };
 }

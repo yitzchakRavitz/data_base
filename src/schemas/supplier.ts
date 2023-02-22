@@ -8,6 +8,7 @@ type supplierSchemaModel = Model<supplier>
 export interface supplierInterface {
     Schema: ModelStatic<supplierSchemaModel>
     insert: (client: supplier) => Promise<supplier>
+    deleteSupplierById(id)
 }
 
 
@@ -43,6 +44,12 @@ export async function createTable(sequelize: Sequelize): Promise<supplierInterfa
             const result = await supplierSchema.create(supplier as supplier)
             return result.toJSON();
         },
+        async deleteSupplierById(supplier) {
+            const result = await supplierSchema.destroy({
+                where: { name: supplier }
+            });
+            return result === 1;
+        }
     };
 }
 

@@ -26,8 +26,9 @@ export async function createTables() {
     const connection = getConnection()
     const product = await createProductTable(connection);
     const client = await createClientTable(connection);
-    const sale = await createSaleTable(connection, client.Schema, product.Schema);
     const supplier = await createSupplierTable(connection);
+    const sale = await createSaleTable(connection, supplier.Schema,client.Schema, product.Schema);
+
 
     
    
